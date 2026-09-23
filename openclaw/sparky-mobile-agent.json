@@ -1,0 +1,23 @@
+{
+  "_comment": "Merge into agents.entries in ~/.openclaw/openclaw.json, then set OPENCLAW_AGENT=sparky-mobile in .env. Same workspace (persona, memory, notes) as main, with no tools that act on the outside world.",
+  "sparky-mobile": {
+    "workspace": "/home/openclaw/workspace",
+    "tools": {
+      "deny": [
+        "exec",
+        "write",
+        "edit",
+        "apply_patch",
+        "outlook_mail",
+        "conversations_send",
+        "message",
+        "cron",
+        "sessions_spawn",
+        "publish_report",
+        "bounded_workflow",
+        "generate_music",
+        "browser"
+      ]
+    }
+  }
+}

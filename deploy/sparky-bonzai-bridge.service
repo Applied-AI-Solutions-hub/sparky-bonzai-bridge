@@ -1,0 +1,23 @@
+# systemd user unit. deploy/install.sh fills in @NODE@ and @APP_DIR@.
+[Unit]
+Description=Sparky BonzAI bridge (MCP for BonzAI on iPhone/iPad)
+After=network-online.target openclaw-gateway.service
+Wants=openclaw-gateway.service
+
+[Service]
+Type=simple
+WorkingDirectory=@APP_DIR@
+EnvironmentFile=-@APP_DIR@/.env
+ExecStart=@NODE@ @APP_DIR@/src/index.ts
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+# The bridge writes its own state and the two mailboxes. The openclaw CLI it
+# spawns writes logs/cache under ~/.openclaw.
+ReadWritePaths=%h/.local/state/sparky-bonzai-bridge %h/workspace/inbox/bonzai %h/workspace/outbox/bonzai %h/.openclaw
+
+[Install]
+WantedBy=default.target
