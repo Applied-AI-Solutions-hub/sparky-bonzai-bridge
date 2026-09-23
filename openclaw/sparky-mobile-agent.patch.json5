@@ -1,0 +1,32 @@
+// Restricted OpenClaw agent for turns relayed from BonzAI.
+// Same workspace (persona, memory, notes) as the main agent, with every tool
+// that acts on the outside world denied. Adjust the workspace path and deny
+// list to match your install, then apply:
+//   openclaw config patch --file openclaw/sparky-mobile-agent.patch.json5 --dry-run
+//   openclaw config patch --file openclaw/sparky-mobile-agent.patch.json5
+{
+  agents: {
+    entries: {
+      "sparky-mobile": {
+        workspace: "/home/openclaw/workspace",
+        tools: {
+          deny: [
+            "exec",
+            "write",
+            "edit",
+            "apply_patch",
+            "outlook_mail",
+            "conversations_send",
+            "message",
+            "cron",
+            "sessions_spawn",
+            "publish_report",
+            "bounded_workflow",
+            "generate_music",
+            "browser",
+          ],
+        },
+      },
+    },
+  },
+}

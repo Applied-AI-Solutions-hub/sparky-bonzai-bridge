@@ -19,10 +19,17 @@ Phone requests are written by a small model that may have just read a web
 page. Run them under an agent that shares Sparky's workspace (persona, memory,
 notes) but cannot act outside the PC.
 
-1. Back up the config: `cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.pre-bonzai-bridge`
-2. Merge the `sparky-mobile` entry from [openclaw/sparky-mobile-agent.json](../openclaw/sparky-mobile-agent.json)
-   into `agents.entries`.
-3. Restart the gateway: `systemctl --user restart openclaw-gateway.service`
+1. Check the workspace path and deny list in
+   [openclaw/sparky-mobile-agent.patch.json5](../openclaw/sparky-mobile-agent.patch.json5)
+   against your install.
+2. Back up the config and apply the patch (OpenClaw validates it before writing):
+   ```bash
+   cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.pre-bonzai-bridge
+   openclaw config patch --file openclaw/sparky-mobile-agent.patch.json5 --dry-run
+   openclaw config patch --file openclaw/sparky-mobile-agent.patch.json5
+   systemctl --user restart openclaw-gateway.service
+   ```
+3. Confirm it shows up: `openclaw agents list`
 4. Test it: `openclaw agent --agent sparky-mobile --session-key bonzai-test -m "Reply with: ready" --json`
 5. Set `OPENCLAW_AGENT=sparky-mobile` in `.env`.
 
