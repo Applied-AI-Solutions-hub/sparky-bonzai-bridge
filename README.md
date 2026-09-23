@@ -87,3 +87,7 @@ Node 24 runs the TypeScript sources directly (type stripping), so there is no
 build step. Tests use a fake `openclaw` binary
 ([tests/fixtures/fake-openclaw.mjs](tests/fixtures/fake-openclaw.mjs)) and a
 real MCP client, so they do not touch a live agent.
+
+## License
+
+[MIT](LICENSE)
